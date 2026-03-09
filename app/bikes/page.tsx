@@ -36,13 +36,13 @@ async function fetchAll(): Promise<Bike[]> {
 }
 
 async function upsertBike(data: { user_name: string; location: string; status: string }) {
-  const res = await fetch(`${URL}/rest/v1/bikes?on_conflict=user_name`, {
+  const res = await fetch(`${URL}/rest/v1/bikes`, {
     method: 'POST',
     headers: {
       apikey: KEY!,
       Authorization: `Bearer ${KEY}`,
       'Content-Type': 'application/json',
-      Prefer: 'resolution=merge-duplicates,return=minimal',
+      Prefer: 'return=minimal',
     },
     body: JSON.stringify({ ...data, update_time: new Date().toISOString() }),
   })
